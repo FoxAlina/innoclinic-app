@@ -1,19 +1,14 @@
 import React, { useState } from "react";
 import "./Login.css";
+import * as authService from 'D:/Innowise/repos/innoclinic-app/src/features/auth/services/AuthService.js';
 
 function Signup() {
-  const [email, setEmail] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [password, setPassword] = useState("");
+  const [form, setForm] = useState({ email: '', firstname: '', lastname: '', password: '', confirmedPassword: '' });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log("Email:", email);
-    console.log("Password:", password);
-
-    alert("Signup Successful!");
+    authService.signUp(form);
+    setForm({ email: '', firstname: '', lastname: '', password: '', confirmedPassword: '' });
   };
 
   return (
@@ -27,8 +22,8 @@ function Signup() {
             <input
               type="email"
               placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={form.email}
+              onChange={(e) => setForm({...form, email: e.target.value})}
               required
             />
           </div>
@@ -38,8 +33,8 @@ function Signup() {
             <input
               type="firstname"
               placeholder="Enter your first name"
-              value={firstname}
-              onChange={(e) => setFirstname(e.target.value)}
+              value={form.firstname}
+              onChange={(e) => setForm({...form, firstname: e.target.value})}
               required
             />
           </div>
@@ -49,8 +44,8 @@ function Signup() {
             <input
               type="lastname"
               placeholder="Enter your last name"
-              value={lastname}
-              onChange={(e) => setLastname(e.target.value)}
+              value={form.lastname}
+              onChange={(e) => setForm({...form, lastname: e.target.value})}
               required
             />
           </div>
@@ -60,13 +55,24 @@ function Signup() {
             <input
               type="password"
               placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={form.password}
+              onChange={(e) => setForm({...form, password: e.target.value})}
               required
             />
           </div>
 
-          <button type="submit">Signup</button>
+          <div className="input-group">
+            <label>Confirmed password</label>
+            <input
+              type="password"
+              placeholder="Enter your password again"
+              value={form.confirmedPassword}
+              onChange={(e) => setForm({...form, confirmedPassword: e.target.value})}
+              required
+            />
+          </div>
+
+          <button type="submit">Sign up</button>
         </form>
 
         <div className="footer">
